@@ -21,6 +21,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
 RUN mkdir -p apps packages
 COPY apps/*/package.json ./apps/
 COPY packages/ ./packages/
+COPY patches/ ./patches/
 
 RUN pnpm install --prod --ignore-scripts
 
