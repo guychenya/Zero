@@ -10,6 +10,9 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
+ENV PNPM_HOME="/root/.local/share/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
 # Install turbo globally
 RUN npm install -g pnpm
 RUN pnpm install -g turbo
