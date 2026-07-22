@@ -18,8 +18,9 @@ RUN npm install -g pnpm
 RUN pnpm install -g turbo
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
-RUN mkdir -p apps packages
-COPY apps/*/package.json ./apps/
+RUN mkdir -p apps/mail apps/server packages
+COPY apps/mail/package.json ./apps/mail/
+COPY apps/server/package.json ./apps/server/
 COPY packages/ ./packages/
 COPY patches/ ./patches/
 
