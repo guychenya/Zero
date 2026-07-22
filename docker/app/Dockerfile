@@ -55,26 +55,27 @@ RUN cd apps/mail && pnpm run build
 # ========================================
 # Runner Stage: Production Environment
 # ========================================
+# apps/mail builds with ssr:false (react-router.config.ts) — it's a static
+# SPA meant for Cloudflare Pages/Workers, not a Node/Bun server. There is no
+# server.js to run, so we serve the prerendered build/client/ output directly.
 FROM base AS runner
 WORKDIR /app
 
-RUN npm install -g wrangler
+RUN npm install -g serve
 
 RUN addgroup -S -g 1001 pnpm && \
     adduser -S -u 1001 nextjs -G pnpm
 
-# Set environment variables for build
 ENV NODE_ENV=production \
     PORT=3000 \
-    HOSTNAME="0.0.0.0" \
-    NEXT_TELEMETRY_DISABLED=1
+    HOSTNAME="0.0.0.0"
 
 # Copy entrypoint and run it
 COPY scripts/docker/ /app/scripts
 RUN chmod -R +x /app/scripts/*
 
-# Copy the entire built application
-COPY --from=builder --chown=nextjs:pnpm /app ./
+# Copy only the static build output, not the whole monorepo/node_modules
+COPY --from=builder --chown=nextjs:pnpm /app/apps/mail/build/client ./apps/mail/build/client
 
 # Switch to non-root user
 USER nextjs
