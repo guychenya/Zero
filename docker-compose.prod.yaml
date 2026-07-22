@@ -69,7 +69,6 @@ services:
 
   valkey:
     image: docker.io/valkey/valkey:8-alpine
-    command: ['valkey-server', '--rename-command', 'FLUSHDB', '""', '--rename-command', 'FLUSHALL', '""']
     volumes:
       - valkey-data:/data
     healthcheck:
