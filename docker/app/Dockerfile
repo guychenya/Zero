@@ -14,7 +14,7 @@ ENV PNPM_HOME="/root/.local/share/pnpm"
 ENV PATH="$PNPM_HOME/bin:$PATH"
 
 # Install turbo globally
-RUN npm install -g pnpm
+RUN npm install -g pnpm@10.15.0
 RUN pnpm install -g turbo
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
@@ -33,7 +33,7 @@ RUN pnpm install --prod --ignore-scripts
 FROM base AS builder
 WORKDIR /app
 
-RUN npm install -g pnpm wrangler
+RUN npm install -g pnpm@10.15.0 wrangler
 
 # Copy workspace configuration and source code
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./

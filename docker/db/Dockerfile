@@ -4,7 +4,7 @@
 FROM node:22-alpine AS deps
 WORKDIR /app
 
-RUN npm install -g pnpm
+RUN npm install -g pnpm@10.15.0
 
 # Copy workspace configuration and package files
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
@@ -21,7 +21,7 @@ RUN pnpm install --frozen-lockfile
 FROM node:22-alpine AS runner
 WORKDIR /app
 
-RUN npm install -g pnpm
+RUN npm install -g pnpm@10.15.0
 
 # Copy workspace configuration and dependencies
 COPY --from=deps /app/node_modules ./node_modules
