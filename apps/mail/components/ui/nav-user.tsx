@@ -207,7 +207,7 @@ export function NavUser() {
                 side={'bottom'}
                 sideOffset={8}
               >
-                {session && activeAccount && (
+                {session?.user && activeAccount && (
                   <>
                     <div className="flex flex-col items-center p-3 text-center">
                       <Avatar className="border-border/50 mb-2 size-14 rounded-xl border">
@@ -637,14 +637,14 @@ export function NavUser() {
           <div className="mt-[2px] flex flex-col items-start gap-1 space-y-1">
             <div className="flex items-center gap-1 text-[13px] leading-none text-black dark:text-white">
               <p className={cn('max-w-[14.5ch] truncate text-[13px]')}>
-                {activeAccount?.name || session.user.name || 'User'}
+                {activeAccount?.name || session.user?.name || 'User'}
               </p>
               {isPro ? (
                 <BadgeCheck className="h-4 w-4 text-white dark:text-[#141414]" fill="#1D9BF0" />
               ) : null}
             </div>
             <div className="h-5 max-w-[200px] overflow-hidden truncate text-xs font-normal leading-none text-[#898989]">
-              {activeAccount?.email || session.user.email}
+              {activeAccount?.email || session.user?.email}
             </div>
             {!isPro && (
               <button
